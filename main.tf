@@ -45,6 +45,10 @@ resource "aws_dynamodb_table" "terraform_locks" {
     name = "LockID"
     type = "S"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # Config to store the state in s3 and lock it with dynamodb
@@ -67,4 +71,8 @@ output "s3_bucket_arn" {
 output "dynamodb_table_arn" {
   value = aws_dynamodb_table.terraform_locks.arn
   description = "The ARN of the DynamoDB table"
+}
+
+module "cognito" {
+  source = "./cognito"
 }
