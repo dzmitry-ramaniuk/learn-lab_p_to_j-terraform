@@ -24,11 +24,6 @@ resource "aws_dynamodb_table" "dynamodb_table_user_information" {
     type = "S"
   }
 
-  attribute {
-    name = "RegistrationDate"
-    type = "S"
-  }
-
   global_secondary_index {
     hash_key        = "Email"
     name            = "EmailIndex"
@@ -46,10 +41,22 @@ resource "aws_dynamodb_table" "dynamodb_table_user_information" {
     name            = "MobilePhoneIndex"
     projection_type = "ALL"
   }
+}
 
-  global_secondary_index {
-    hash_key        = "RegistrationDate"
-    name            = "RegistrationDateIndex"
-    projection_type = "ALL"
+resource "aws_dynamodb_table" "dynamodb_table_user_balance" {
+  name         = "UserBalance"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "UserID"
+  range_key = "Currency"
+
+  attribute {
+    name = "UserID"
+    type = "S"
   }
+
+  attribute {
+    name = "Currency"
+    type = "S"
+  }
+
 }
