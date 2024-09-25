@@ -76,3 +76,7 @@ output "dynamodb_table_arn" {
 module "cognito" {
   source = "./cognito"
 }
+
+module "dynamodb" {
+  source = "./dynamodb"
+}
