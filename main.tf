@@ -80,3 +80,7 @@ module "cognito" {
 module "dynamodb" {
   source = "./dynamodb"
 }
+
+module "vpc" {
+  source = "./vpc"
+}
