@@ -64,12 +64,12 @@ terraform {
 }
 
 output "s3_bucket_arn" {
-  value = aws_s3_bucket.terraform_state.arn
+  value       = aws_s3_bucket.terraform_state.arn
   description = "The ARN of the S3 bucket"
 }
 
 output "dynamodb_table_arn" {
-  value = aws_dynamodb_table.terraform_locks.arn
+  value       = aws_dynamodb_table.terraform_locks.arn
   description = "The ARN of the DynamoDB table"
 }
 
@@ -87,4 +87,13 @@ module "vpc" {
 
 module "s3" {
   source = "./s3"
+}
+
+module "lambda" {
+  source               = "./lambda"
+  lambda_exec_role_arn = module.iam.lambda_exec_role_arn
+}
+
+module "iam" {
+  source = "./iam"
 }
