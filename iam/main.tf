@@ -26,10 +26,13 @@ resource "aws_iam_role_policy" "lambda_exec_policy" {
         Action = [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
-          "logs:PutLogEvents"
+          "logs:PutLogEvents",
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DeleteNetworkInterface",
         ],
         Effect   = "Allow",
-        Resource = "arn:aws:logs:*:*:*"
+        Resource = "*"
       }
     ]
   })

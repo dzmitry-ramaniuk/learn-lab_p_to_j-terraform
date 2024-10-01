@@ -50,3 +50,26 @@ resource "aws_route_table_association" "public-lab-route-table-association" {
   subnet_id      = aws_subnet.public-lab-subnet.id
   route_table_id = aws_route_table.public-lab-route-table.id
 }
+
+resource "aws_security_group" "lab-vpc-lambda-sg" {
+  name   = "lab-vpc-lambda-sg"
+  vpc_id = aws_vpc.lab-vpc.id
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "lab-vpc-lambda-sg"
+  }
+}
