@@ -90,12 +90,18 @@ module "s3" {
 }
 
 module "lambda" {
-  source               = "./lambda"
-  lambda_exec_role_arn = module.iam.lambda_exec_role_arn
+  source                    = "./lambda"
+  lambda_exec_role_arn      = module.iam.lambda_exec_role_arn
   lab_vpc_private_subnet_id = module.vpc.lab_vpc_private_subnet_id
   lab_vpc_security_group_id = module.vpc.lab_vpc_security_group_id
 }
 
 module "iam" {
   source = "./iam"
+}
+
+module "api" {
+  source                  = "./api"
+  lambda_registration_arn = module.lambda.lambda_registration_arn
+  lambda_registration_name = module.lambda.lambda_registration_name
 }
